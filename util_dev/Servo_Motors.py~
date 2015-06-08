@@ -15,4 +15,4 @@ class ServoMotors():
 		lib.pwmWrite(1,y)
 
 
-ServoMotors.servo311(180)
+ServoMotors.servo311(0)
