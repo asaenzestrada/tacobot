@@ -1,5 +1,21 @@
+from django.shortcuts import render_to_response
+from django.template.context import RequestContext
+from django.views.decorators.csrf import csrf_protect
+import time
+from BrickPi import *
 
 
+BrickPiSetup()
+
+# Create your views here.
+@csrf_protect
+def system(request):
+	if request.method == 'POST':
+		for n in range(int(request.POST.get('q', '0'))):
+			a = n
+			hazTaco()
+		return render_to_response('index.html', dict(), context_instance=RequestContext(request))
+	return render_to_response('index.html', dict(), context_instance=RequestContext(request))
 
 def motorDown():
 	BrickPi.MotorSpeed[motor2] = 100
@@ -34,10 +50,6 @@ def rotateRight():
 	return
 
 def hazTaco():
-	import time
-	from BrickPi import *
-	
-	BrickPiSetup()
 	motor1 = PORT_A #girar
 	motor2 = PORT_B #agacharse
 	motor3 = PORT_C #garra

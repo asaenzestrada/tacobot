@@ -62,7 +62,7 @@ def hazTaco():
 	print("Tratando de abrir mi garra")
 	openClaw()
 	print("Ya se abrio")
-	time.sleep(2)
+	time.sleep(0.01)
 
 	print("Cerrando mi garra")
 	closeClaw()

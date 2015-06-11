@@ -1,3 +1,8 @@
+import threading
+import time
+from BrickPi import *
+
+BrickPiSetup()
 
 
 
@@ -34,21 +39,6 @@ def rotateRight():
 	return
 
 def hazTaco():
-	import time
-	from BrickPi import *
-	
-	BrickPiSetup()
-	motor1 = PORT_A #girar
-	motor2 = PORT_B #agacharse
-	motor3 = PORT_C #garra
-	sensor1 = PORT_1 #touch
-	BrickPi.SensorType[sensor1] = TYPE_SENSOR_TOUCH
-	BrickPi.MotorEnable[motor1] = 1
-	BrickPi.MotorEnable[motor2] = 1
-	BrickPi.MotorEnable[motor3] = 1
-	BrickPiSetupSensors()
-	
-	
 	print("Intentando girar a la derecha") 
 	rotateRight()
 	print("Ya gire")
@@ -62,7 +52,7 @@ def hazTaco():
 	print("Tratando de abrir mi garra")
 	openClaw()
 	print("Ya se abrio")
-	time.sleep(2)
+	time.sleep(0.01)
 
 	print("Cerrando mi garra")
 	closeClaw()
@@ -90,4 +80,28 @@ def hazTaco():
 	time.sleep(0.01)
 	print("Ya esta su taco")
 	return
+
+motor1 = PORT_A #girar
+motor2 = PORT_B #agacharse
+motor3 = PORT_C #garra
+sensor1 = PORT_1 #touch
+BrickPi.SensorType[sensor1] = TYPE_SENSOR_TOUCH
+BrickPi.MotorEnable[motor1] = 1
+BrickPi.MotorEnable[motor2] = 1
+BrickPi.MotorEnable[motor3] = 1
+
+
+BrickPiSetupSensors()
+#que el ciclo comience con el cambio del sensor.
+#cambiar el estado total por el estado del sensor.
+while True:
+	result = BrickPiUpdateValues()
+	if not result:
+		if BrickPi.Sensor[sensor1]:
+			hazTaco()
+			
+		#else:
+			#closeClawDegree()
+
+		
 	time.sleep(0.01)
