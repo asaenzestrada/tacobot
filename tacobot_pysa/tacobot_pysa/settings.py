@@ -35,7 +35,6 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -55,22 +54,6 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'tacobot_pysa.urls'
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
 
 WSGI_APPLICATION = 'tacobot_pysa.wsgi.application'
 
@@ -100,7 +83,18 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-STATIC_URL = '/static/'
+STATIC_ROOT = os.path.dirname(os.path.dirname(__file__)) + 'static/'
+STATIC_URL = '/assets/'
+
+MEDIA_ROOT = os.path.dirname(os.path.dirname(__file__)) + 'media/'
+MEDIA_URL = '/media/'
+
+STATICFILES_DIRS = (
+    PROJECT_ROOT + '/static/',
+)
+
+TEMPLATE_DIRS = (
+    PROJECT_ROOT + '/templates/',
+)
